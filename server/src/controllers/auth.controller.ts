@@ -56,13 +56,13 @@ export const login: RequestHandler = async (req, res) => {
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user || !user.password) {
       res.status(400).json({ message: "Invalid credentials" });
-      return; // Just return without value
+      return;
     }
 
     const isMatch = await comparePassword(password, user.password);
     if (!isMatch) {
       res.status(400).json({ message: "Invalid credentials" });
-      return; // Just return without value
+      return;
     }
 
     const accessToken = generateAccessToken(user);
